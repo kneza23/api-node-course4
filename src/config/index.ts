@@ -8,7 +8,7 @@ let envConfig;
 
 // dynamically require each config depending on the stage we're in
 if (stage === "production") {
-  envConfig = require("./prod").default;
+  envConfig = require("./production").default;
 } else if (stage === "staging") {
   envConfig = require("./staging").default;
 } else {
