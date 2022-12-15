@@ -45,3 +45,15 @@ export const signin = async (req: any, res: any, next: any) => {
     next(error);
   }
 };
+
+export const getUser = async (req: any, res: any) => {
+  const user = await prisma.user.findUnique({
+    where: {
+      id: req.user.id,
+    },
+    include: {
+      foundMarkers: true,
+    },
+  });
+  res.json({ data: user });
+};

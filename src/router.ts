@@ -1,77 +1,20 @@
+import { getUser } from "./handlers/user";
 import {
-  createProduct,
-  updateProduct,
-  getProducts,
-  deleteProduct,
-  getOneProduct,
-} from "./handlers/product";
-import { Router } from "express";
-import { body } from "express-validator";
+  addMarkerToUser,
+  getAllMarkers,
+  getOneMarker,
+} from "./handlers/marker";
 import { handleInputErrors } from "./modules/middleware";
-import {
-  createUpdate,
-  deleteUpdate,
-  getOneUpdate,
-  getUpdates,
-  updateUpdate,
-} from "./handlers/update";
+import { Router } from "express";
 
 const router = Router();
 
-// PRODUCT
-router.get("/product", getProducts);
-router.get("/product/:id", getOneProduct);
-router.put(
-  "/product/:id",
-  body("name").isString(),
-  handleInputErrors,
-  updateProduct
-);
-router.post(
-  "/product",
-  body("name").isString(),
-  handleInputErrors,
-  createProduct
-);
-router.delete("/product", deleteProduct);
+//user
+router.get("/user", getUser);
 
-// UPDATES
-router.get("/update", getUpdates);
-router.get("/update/:id", getOneUpdate);
-router.put(
-  "/update/:id",
-  body("title").optional(),
-  body("body").optional(),
-  body("status").isIn(["IN_PROGRESS", "SHIPPED", "DEPRECATED"]).optional(),
-  body("version").optional(),
-  updateUpdate
-);
-router.post(
-  "/update",
-  body("title").exists().isString(),
-  body("body").exists().isString(),
-  body("productId").exists().isString(),
-
-  createUpdate
-);
-router.delete("/update", deleteUpdate);
-
-// UPDATE POINTS
-router.get("/updatepoints", () => {});
-router.get("/updatepoints/:id", () => {});
-router.put(
-  "/updatepoints/:id",
-  body("name").optional().isString(),
-  body("description").optional().isString(),
-  () => {}
-);
-router.post(
-  "/updatepoints",
-  body("name").exists().isString(),
-  body("description").exists().isString(),
-  body("updateId").exists().isString(),
-  () => {}
-);
-router.delete("/updatepoints", () => {});
+// markers
+router.get("/marker", getAllMarkers);
+router.get("/marker/:id", getOneMarker);
+router.post("/marker/foundIt/:id", handleInputErrors, addMarkerToUser);
 
 export default router;

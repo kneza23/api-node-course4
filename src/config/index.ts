@@ -15,12 +15,15 @@ if (stage === "production") {
   envConfig = require("./local").default;
 }
 
-const defaultConfig = {
-  stage,
-  dbUrl: process.env.DATABASE_URL,
-  jwtSecret: process.env.JWT_SECRET,
-  port: process.env.PORT,
-  logging: false,
-};
-
-export default merge(defaultConfig, envConfig);
+export default merge(
+  {
+    stage,
+    dbUrl: process.env.DATABASE_URL,
+    jwtSecret: process.env.JWT_SECRET,
+    port: process.env.PORT,
+    spacesKey: process.env.SPACES_KEY,
+    spacesSecret: process.env.SPACES_SECRET,
+    logging: false,
+  },
+  envConfig
+);
