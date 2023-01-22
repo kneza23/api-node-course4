@@ -1,4 +1,4 @@
-import { createNewUser, getUser, signin } from "./handlers/user";
+import { createNewUser, signin } from "./handlers/user";
 import express from "express";
 import morgan from "morgan";
 import { protect } from "./modules/auth";
